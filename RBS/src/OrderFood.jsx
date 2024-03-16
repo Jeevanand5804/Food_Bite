@@ -11,6 +11,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { TextField, TextareaAutosize } from '@mui/material';
+import { useEmail } from './EmailContext';
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -18,7 +19,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function OrderFood() {
- 
+  const { email } = useEmail();
+
   // const [newOrder, setNewOrder] = useState({
   //   number: "",
   //   foodName: "",
@@ -122,6 +124,7 @@ function OrderFood() {
 
     try {
       const response = axios.post('http://localhost:3000/talkOrder', {
+        email,
         number,
         foodName,
         Address // Note: 'Address' is uppercase here to match the schema
@@ -142,6 +145,7 @@ function OrderFood() {
         <h1 className="heading">
           <span>order</span> now
         </h1>
+
       {/* </Fade> */}
     <div className="row">
         {/* <Fade left> */}
@@ -152,6 +156,7 @@ function OrderFood() {
         {/* <Fade right> */}
         <form onSubmit={handleSubmit}>
           <div className="inputBox">
+        {email && <h3>Email: {email}</h3>}
             <TextField
               className="input"
               type="text"

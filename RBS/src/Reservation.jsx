@@ -4,6 +4,20 @@ import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
 import tableimg from "./images/table.jpg"
 import axios from 'axios';
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+// import { TextField, TextareaAutosize } from '@mui/material';
+import { useEmail } from './EmailContext';
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
 const ReservationCard = styled(Card)(({ theme }) => ({
 marginTop:"100px",
@@ -22,6 +36,8 @@ const Reservation = () => {
   const [numberOfPeople, setNumberOfPeople] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const { email } = useEmail();
+
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -32,9 +48,6 @@ const Reservation = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Perform reservation submission logic here
-    // console.log('Reservation submitted:', { name, number, numberOfPeople, date, time });
-    // Reset form fields after submission
     setName('');
     setNumber('');
     setNumberOfPeople('');
@@ -42,6 +55,7 @@ const Reservation = () => {
     setTime('');
     try {
       const response = axios.post('http://localhost:3000/reserve-table', {
+        email,
         name,
         number,
         numberOfPeople,
@@ -65,6 +79,7 @@ const Reservation = () => {
       <CardContent>
         <Typography variant="h4" className="heading"> <span>Table</span> Reservation</Typography>
         <form onSubmit={handleSubmit}>
+        {email && <h3>Email: {email}</h3>}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -132,7 +147,7 @@ const Reservation = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button className="btn" type="submit" variant="contained" color="primary" sx={{backgroundColor:"white"}}>
+              <Button className="btn" type="submit" variant="outline" color="primary" sx={{backgroundColor:"white"}}>
                 Reserve Table
               </Button>
             </Grid>

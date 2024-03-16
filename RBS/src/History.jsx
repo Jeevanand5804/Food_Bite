@@ -15,44 +15,58 @@ import { useTheme } from '@mui/material/styles';
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
-
+import { useEmail } from './EmailContext'; // Import useEmail hook
 
 
 function History() {
   const theme = useTheme();
   const [orders, setOrders] = useState([]);
-  const [searchOrder, setSearchOrder] = useState("");
+  const [reserves, setReserves] = useState([]);
+  // const [searchOrder, setSearchOrder] = useState("");
   const [editFormData, setEditFormData] = useState({
     orderid: "",
     number: "",
     foodName: "",
     Address: "",
   });
+  const { email } = useEmail(); // Get the currently logged-in user's email
   const [isEditFormOpen, setIsEditFormOpen] = useState(false);
 
-  // const fetchOrders = async () => {
-  //   try {
-  //     const response = await axios.get("http://localhost:3000/getAllOrders");
-  //     setOrders(response.data);
-  //   } catch (error) {
-  //     console.error("Error fetching orders:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchOrders();
-  // }, []);
-
-  const handleSearch = () => {
-    axios
-      .get(`http://localhost:3000/getOrdersByNum/${searchOrder}`)
-      .then((response) => {
-        setOrders(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching orders details:", error);
-      });
+  const fetchOrders = async () => {
+    try {
+      const response = await axios .get(`http://localhost:3000/getOrdersByEmail/${email}`);
+      setOrders(response.data);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
   };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+  const fetchreserves = async () => {
+    try {
+      const response = await axios .get(`http://localhost:3000/getReserveByEmail/${email}`);
+      setReserves(response.data);
+    } catch (error) {
+      console.error("Error fetching reserves:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchreserves();
+  }, []);
+
+  // const handleSearch = () => {
+  //   axios
+  //     .get(`http://localhost:3000/getOrdersByEmail/${searchOrder}`)
+  //     .then((response) => {
+  //       setOrders(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching orders details:", error);
+  //     });
+  // };
 
   const handleDelete = (id) => {
     axios
@@ -114,9 +128,9 @@ function History() {
   return (
     <Box sx={{ paddingTop:"100px"}}>
       <Typography sx={{ color: "black", fontSize: "30px", margin: "5px" }}>
-        Order History:
+        History:
       </Typography>
-      <TextField
+      {/* <TextField
         variant="outlined"
         label="Enter Number"
         value={searchOrder}
@@ -136,9 +150,9 @@ function History() {
       >
         Search
       </Button>
-      <Divider sx={{margin:"8% 0%"}} />
+      <Divider sx={{margin:"8% 0%"}} /> */}
         <h2 style={{padding:"10px 10px"}} >FoodOrder history:</h2>
-      <Box sx={{ padding: "0 50px", fontSize: "20px" ,marginBottom:"40%"}}>
+      <Box sx={{ padding: "0 50px", fontSize: "20px" ,marginBottom:"10%"}}>
         <Grid container spacing={2}>
           {orders.length > 0 ? (
             orders.map((order) => (
@@ -152,7 +166,7 @@ function History() {
               >
                 <CardContent>
                  
-                  <Divider sx={{ margin: "5px" }} />
+                  {/* <Divider sx={{ margin: "5px" }} /> */}
                   <Typography sx={{ fontSize: "15px" }}>
                     <b>Number :</b> {order.number}
                   </Typography>
@@ -219,6 +233,98 @@ function History() {
           )}
         </Grid>
       </Box>
+
+      <h2 style={{padding:"10px 10px"}} >Reserve_Table history:</h2>
+      <Box sx={{ padding: "0 50px", fontSize: "20px" ,marginBottom:"40%"}}>
+        <Grid container spacing={2}>
+          {reserves.length > 0 ? (
+            reserves.map((reserve) => (
+              <Card
+                sx={{
+                  margin: "5px 10px",
+                  boxShadow: "3px 2px 5px",
+                  backgroundColor: "whitesmoke",
+                  fontSize: "20px",
+                }}
+              >
+                <CardContent>
+                 
+                  {/* <Divider sx={{ margin: "5px" }} /> */}
+                  <Typography sx={{ fontSize: "15px" }}>
+                    <b>Name :</b> {reserve.name}
+                  </Typography>
+                  <Divider sx={{ margin: "5px" }} />
+                  <Typography sx={{ fontSize: "15px" }}>
+                    <b>Number :</b> {reserve.number}
+                  </Typography>
+                  <Divider sx={{ margin: "5px" }} />
+                  <Typography sx={{ fontSize: "15px" }}>
+                    <b>No.of.Peoples :</b> {reserve.numberOfPeople}
+                  </Typography>
+                  <Divider sx={{ margin: "5px" }} />
+                  <Typography sx={{ fontSize: "15px" }}>
+                    <b>Date :</b> {reserve.date}
+                  </Typography>
+                  <Divider sx={{ margin: "5px" }} />
+                  <Typography sx={{ fontSize: "15px" }}>
+                    <b>Time :</b> {reserve.time}
+                  </Typography>
+                </CardContent>
+                <EditIcon
+                  sx={{ color: "blue", marginLeft: "150px", fontSize: "23px",display: { xs: "block", sm: "none" },float:"left" }}
+                  onClick={() => handleEdit(reserve)}
+                />
+                <Button
+                  variant="contained"
+                  sx={{
+                    color: "white",
+                    marginLeft: "350px",
+                    fontSize: "15px",
+                    marginBottom: "2px",
+                    display: { xs: "none", sm: "block" },
+                    float:"left"
+                  }}
+                  onClick={() => handleEdit(reserve)}
+                >
+                  Edit
+                </Button>
+                <DeleteOutlineIcon
+                  sx={{
+                    color: "red",
+                    float: "right",
+                    fontSize: "23px",
+                    marginLeft: "5px  ",
+                    display: { xs: "block", sm: "none" }
+                  }}
+                  onClick={() => handleDelete(reserve._id)}
+                />
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "red",
+                    color: "white",
+                    float: "right",
+                    fontSize: "15px",
+                    margin: "2px",
+                    display: { xs: "none", sm: "block" }
+                  }}
+                  onClick={() => handleDelete(reserve._id)}
+                >
+                  Cancel
+                </Button>
+              </Card>
+            ))
+          ) : (
+            <Typography
+              variant="body1"
+              sx={{ margin: "10px", color: "black", fontSize: "20px" }}
+            >
+              No reserves are available
+            </Typography>
+          )}
+        </Grid>
+      </Box>
+
       <Modal
         open={isEditFormOpen}
         onClose={handleEditFormClose}

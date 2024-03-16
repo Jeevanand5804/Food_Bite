@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import tableimg from "./images/table.jpg";
+import { useEmail } from './EmailContext'; // Import the useEmail hook
 
 const SignUpCard = styled(Card)(({ theme }) => ({
   marginTop: "100px",
@@ -18,8 +19,9 @@ const SignUpCard = styled(Card)(({ theme }) => ({
 
 function SignUp() {
   const history = useNavigate();
+  const { setEmail } = useEmail(); // Use the setEmail function from the EmailContext
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmailValue] = useState('');
   const [password, setPassword] = useState('');
 
   async function submit(e) {
@@ -31,6 +33,7 @@ function SignUp() {
         password
       });
       if (response.data.message === "User created successfully") {
+        setEmail(email); // Set the email using the setEmail function from EmailContext
         history("/Home", { state: { id: email } });
       } else {
         alert("User already exists");
@@ -65,7 +68,7 @@ function SignUp() {
                   name="email"
                   label="Email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setEmailValue(e.target.value)} // Update the email state using setEmailValue
                   fullWidth
                   required
                 />

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import { RoutePath } from "./Content";
-import { NavLink } from "react-router-dom";
+import { NavLink,useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -22,6 +22,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import RestaurantIcon from "@mui/icons-material/Restaurant";
+import { useEmail } from './EmailContext';
 
 
 const Title = styled(Typography)({
@@ -41,6 +42,7 @@ const DrawerHeader = styled("div")({
 });
 
 function Header() {
+  const { email } = useEmail();
   const [leftDrawerOpen, setLeftDrawerOpen] = useState(false);
   const [settingDrawerOpen, setSettingDrawerOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
@@ -65,6 +67,12 @@ const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     setActiveLink(link);
     handleLeftDrawerClose();
   };
+  useState(() => {
+    setActiveLink();
+  },[]);
+
+
+  
   return (
     <>
       <AppBar className="header" position="fixed" sx={{ backgroundColor: "rgba(300, 0, 0, 0.8)", padding: "0px",elevation: 4}}>

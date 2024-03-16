@@ -9,7 +9,8 @@ import hbg from "./images/home-bg.jpg";
 import Paper from "@mui/material/Paper";
 import "./App.css";
 import { Link } from "react-router-dom";
-// import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
+import { useEmail } from './EmailContext';
 
 // speciality
 import sImg1 from "./images/s-img-1.jpg";
@@ -32,8 +33,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home() {
+  const { email } = useEmail();
 
   // const location=useLocation()
+  // const email = location.state && location.state.email;
 
   const backgroundImageStyle = {
     backgroundImage: `url(${hbg})`,
@@ -93,7 +96,7 @@ function Home() {
     <div className="content">
       {/* <Fade bottom> */}
         <h3>food made with love</h3>
-        {/* <h5>Welcome {location.state.id}</h5>  */}
+        {email && <h4>Welcome! {email}</h4>}
       {/* </Fade> */}
       {/* <Fade bottom> */}
         <p>

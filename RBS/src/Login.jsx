@@ -5,6 +5,8 @@ import { TextField, Button, Grid, Typography, Card, CardContent } from '@mui/mat
 import { styled } from '@mui/material/styles';
 import tableimg from "./images/table.jpg";
 import { useNavigate, Link } from "react-router-dom";
+import { useEmail } from './EmailContext';
+
 // import bcrypt from 'bcrypt';
 
 const LoginCard = styled(Card)(({ theme }) => ({
@@ -20,8 +22,10 @@ const LoginCard = styled(Card)(({ theme }) => ({
 
 function LoginForm() {
   const history = useNavigate();
-  const [email, setEmail] = useState('');
+  const { setEmail } = useEmail();
+  const [email, setEmailValue] = useState('');
   const [password, setPassword] = useState('');
+
 
   async function submit(e) {
     e.preventDefault();
@@ -34,7 +38,9 @@ function LoginForm() {
 
       if (response.status === 200) {
         // Redirect to home page or perform any other action
-        history("/Home", { state: { id: email } });
+        setEmail(email);
+        // Redirect to home page or perform any other action
+        history("/Home");
       } else {
         alert("Invalid credentials");
       }
@@ -57,7 +63,7 @@ function LoginForm() {
                   name="email"
                   label="Email"
                   value={email}
-                  onChange={(e) => { setEmail(e.target.value) }}
+                  onChange={(e) => { setEmailValue(e.target.value) }}
                   fullWidth
                   required
                 />
