@@ -26,7 +26,8 @@ function History() {
   const [editFormData, setEditFormData] = useState({
     orderid: "",
     number: "",
-    foodName: "",
+    foodItems: [],
+    // foodName: "",
     Address: "",
   });
   const { email } = useEmail(); // Get the currently logged-in user's email
@@ -85,7 +86,8 @@ function History() {
     setEditFormData({
       orderid: order._id,
       number: order.number,
-      foodName: order.foodName,
+      foodItems: order.foodItems,
+      // foodName: order.foodName,
       Address: order.Address,
     });
     setIsEditFormOpen(true);
@@ -96,33 +98,44 @@ function History() {
     axios
       .put(`http://localhost:3000/editOrder/${editFormData.orderid}`, editFormData)
       .then(() => {
+        // Update the orders state with the edited order
         const updatedOrders = orders.map((order) => {
           if (order._id === editFormData.orderid) {
             return {
               ...order,
               number: editFormData.number,
-              foodName: editFormData.foodName,
+              foodItems: editFormData.foodItems,
               Address: editFormData.Address,
             };
           }
           return order;
         });
         setOrders(updatedOrders);
+        // Close the edit form modal
         handleEditFormClose();
       })
       .catch((error) => {
         console.error("Error updating order:", error);
       });
   };
+  
 
   const handleEditFormClose = () => {
     setIsEditFormOpen(false);
     setEditFormData({
       orderid: "",
       number: "",
-      foodName: "",
+      foodItems: [],
+      // foodName: "",
       Address: "",
     });
+  };
+  const calculateTotalPrice = (order) => {
+    let totalPrice = 0;
+    order.foodItems.forEach((item) => {
+      totalPrice += item.price * item.quantity;
+    });
+    return totalPrice;
   };
 
   return (
@@ -130,27 +143,7 @@ function History() {
       <Typography sx={{ color: "black", fontSize: "30px", margin: "5px" }}>
         History:
       </Typography>
-      {/* <TextField
-        variant="outlined"
-        label="Enter Number"
-        value={searchOrder}
-        onChange={(e) => setSearchOrder(e.target.value)}
-        sx={{ width: "90%",margin:"10px" }}
-      />
-      <Button
-        variant="contained"
-        onClick={handleSearch}
-        sx={{
-          float: "right",
-          marginRight: "10%",
-          marginTop: "5px",
-          fontSize: "15px",
-          marginBottom:"5px"
-        }}
-      >
-        Search
-      </Button>
-      <Divider sx={{margin:"8% 0%"}} /> */}
+
         <h2 style={{padding:"10px 10px"}} >FoodOrder history:</h2>
       <Box sx={{ padding: "0 50px", fontSize: "20px" ,marginBottom:"10%"}}>
         <Grid container spacing={2}>
@@ -172,12 +165,44 @@ function History() {
                   </Typography>
                   <Divider sx={{ margin: "5px" }} />
                   <Typography sx={{ fontSize: "15px" }}>
-                    <b>FoodName :</b> {order.foodName}
-                  </Typography>
-                  <Divider sx={{ margin: "5px" }} />
-                  <Typography sx={{ fontSize: "15px" }}>
                     <b>Address :</b> {order.Address}
                   </Typography>
+                 {order.foodItems && order.foodItems.length > 0 && (
+  <>
+    <Divider sx={{ margin: "10px 0" }} />
+    <table style={{ borderCollapse: "collapse", width: "100%" }}>
+      <thead>
+        <tr>
+          <th style={{ border: "1px solid black", padding: "8px" }}>Food Name</th>
+          <th style={{ border: "1px solid black", padding: "8px" }}>Quantity</th>
+          <th style={{ border: "1px solid black", padding: "8px" }}>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {order.foodItems.map((item, index) => (
+          <tr key={index}>
+            <td style={{ border: "1px solid black", padding: "8px" }}>{item.name}</td>
+            <td style={{ border: "1px solid black", padding: "8px" }}>{item.quantity}</td>
+            <td style={{ border: "1px solid black", padding: "8px" }}>{item.price}</td>
+          </tr>
+        ))}
+      </tbody>
+      <tfoot>
+      <tr>
+        <td style={{ border: "1px solid black", padding: "8px" }} colSpan="2">
+          <b>Total Price:</b>
+        </td>
+        <td style={{ border: "1px solid black", padding: "8px" }}>
+          ${calculateTotalPrice(order)}
+        </td>
+      </tr>
+    </tfoot>
+    </table>
+  </>
+)}
+<Typography sx={{ fontSize: "15px" }}>
+  <b>Created At:</b> {new Date(order.createdAt).toLocaleString()}
+</Typography>
                 </CardContent>
                 <EditIcon
                   sx={{ color: "blue", marginLeft: "150px", fontSize: "23px",display: { xs: "block", sm: "none" },float:"left" }}
@@ -269,6 +294,9 @@ function History() {
                   <Typography sx={{ fontSize: "15px" }}>
                     <b>Time :</b> {reserve.time}
                   </Typography>
+                  <Typography sx={{ fontSize: "15px" }}>
+  <b>Booked time:</b> {new Date(reserve.createdAt).toLocaleString()}
+</Typography>
                 </CardContent>
                 <EditIcon
                   sx={{ color: "blue", marginLeft: "150px", fontSize: "23px",display: { xs: "block", sm: "none" },float:"left" }}
@@ -332,7 +360,7 @@ function History() {
         aria-describedby="modal-modal-description"
         style={{
           display: "flex",
-          alignItems: "center",
+          alignfoodItems: "center",
           justifyContent: "center",
         }}
       >
@@ -340,7 +368,7 @@ function History() {
           style={{
             backgroundColor: "white",
             width: "500px",
-            alignItems: "center",
+            alignfoodItems: "center",
             textAlign: "center",
             padding: "20px",
           }}
@@ -359,16 +387,42 @@ function History() {
               }
             />
 
-            <TextField
-              label="FoodName"
-              fullWidth
-              margin="normal"
-              name="FoodName"
-              value={editFormData.foodName}
-              onChange={(e) =>
-                setEditFormData({ ...editFormData, foodName: e.target.value })
-              }
-            />
+{editFormData.foodItems.map((item, index) => (
+  <div key={index}>
+    <TextField
+      label={`Food Name ${index + 1}`}
+      fullWidth
+      margin="normal"
+      name={`FoodName${index}`}
+      value={item.name}
+      onChange={(e) => {
+        const newFoodItems = [...editFormData.foodItems];
+        newFoodItems[index].name = e.target.value;
+        setEditFormData({
+          ...editFormData,
+          foodItems: newFoodItems,
+        });
+      }}
+    />
+    <TextField
+      label={`Quantity ${index + 1}`}
+      fullWidth
+      margin="normal"
+      name={`Quantity${index}`}
+      value={item.quantity}
+      onChange={(e) => {
+        const newFoodItems = [...editFormData.foodItems];
+        newFoodItems[index].quantity = e.target.value;
+        setEditFormData({
+          ...editFormData,
+          foodItems: newFoodItems,
+        });
+      }}
+    />
+    {/* Add similar TextField components for other fields */}
+  </div>
+))}
+
 
             <TextField
               label="Address"
