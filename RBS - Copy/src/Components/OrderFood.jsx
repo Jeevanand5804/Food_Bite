@@ -231,8 +231,8 @@
 // export default OrderFood;
 
 import React, { useState, useEffect } from "react";
-import "./App.css";
-import orderImg from "./images/order-img.jpg";
+import "../App.css";
+import orderImg from "../images/order-img.jpg";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -242,7 +242,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 import { TextField, MenuItem, Typography,Autocomplete } from "@mui/material";
-import { useEmail } from "./EmailContext";
+import { useEmail } from "../base/EmailContext";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
