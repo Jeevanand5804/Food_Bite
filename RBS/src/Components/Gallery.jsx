@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
-import g1 from "./images/g-1.jpg";
-import g2 from "./images/g-2.jpg";
-import g3 from "./images/g-3.jpg";
-import g4 from "./images/g-4.jpg";
-import g5 from "./images/g-5.jpg";
-import g6 from "./images/g-6.jpg";
-import g7 from "./images/g-7.jpg";
-import g8 from "./images/g-8.jpg";
-import g9 from "./images/g-9.jpg";
+import g1 from "../images/g-1.jpg";
+import g2 from "../images/g-2.jpg";
+import g3 from "../images/g-3.jpg";
+import g4 from "../images/g-4.jpg";
+import g5 from "../images/g-5.jpg";
+import g6 from "../images/g-6.jpg";
+import g7 from "../images/g-7.jpg";
+import g8 from "../images/g-8.jpg";
+import g9 from "../images/g-9.jpg";
 // import Bounce from "react-reveal/Bounce";
 // import Fade from "react-reveal/Fade";
 

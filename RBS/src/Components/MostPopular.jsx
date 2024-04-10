@@ -1,10 +1,10 @@
 import React from "react";
-import p1 from "./images/p-1.jpg";
-import p2 from "./images/p-2.jpg";
-import p3 from "./images/p-3.jpg";
-import p4 from "./images/p-4.jpg";
-import p5 from "./images/p-5.jpg";
-import p6 from "./images/p-6.jpg";
+import p1 from "../images/p-1.jpg";
+import p2 from "../images/p-2.jpg";
+import p3 from "../images/p-3.jpg";
+import p4 from "../images/p-4.jpg";
+import p5 from "../images/p-5.jpg";
+import p6 from "../images/p-6.jpg";
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 // import Fade from "react-reveal/Fade";

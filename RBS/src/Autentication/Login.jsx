@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Grid, Typography, Card, CardContent } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import tableimg from "./images/table.jpg";
+import tableimg from "../images/table.jpg";
 import { useNavigate, Link } from "react-router-dom";
-import { useEmail } from './EmailContext';
+import { useEmail } from '../base/EmailContext';
 
 // import bcrypt from 'bcrypt';
 

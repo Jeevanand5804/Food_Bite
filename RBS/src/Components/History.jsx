@@ -4,8 +4,8 @@ import {
   Box,
 } from "@mui/material";
 import { useTheme } from '@mui/material/styles';
-import FoodOrderHistory from "./FoodOrderHistory";
-import ReservationHistory from "./ReservationHistory";
+import FoodOrderHistory from "../Components/FoodOrderHistory";
+import ReservationHistory from "../Components/ReservationHistory";
 
 
 function History() {

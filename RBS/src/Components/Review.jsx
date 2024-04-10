@@ -1,7 +1,7 @@
 import React from "react";
-import pic1 from "./images/pic1.png";
-import pic2 from "./images/pic2.png";
-import pic3 from "./images/pic3.png";
+import pic1 from "../images/pic1.png";
+import pic2 from "../images/pic2.png";
+import pic3 from "../images/pic3.png";
 import StarIcon from "@mui/icons-material/Star";
 import StarHalfIcon from "@mui/icons-material/StarHalf";
 // import Zoom from "react-reveal/Zoom";

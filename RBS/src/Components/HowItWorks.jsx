@@ -1,8 +1,8 @@
 import React from "react";
-import st1 from "./images/step-1.jpg";
-import st2 from "./images/step-2.jpg";
-import st3 from "./images/step-3.jpg";
-import st4 from "./images/step-4.jpg";
+import st1 from "../images/step-1.jpg";
+import st2 from "../images/step-2.jpg";
+import st3 from "../images/step-3.jpg";
+import st4 from "../images/step-4.jpg";
 // import Pulse from "react-reveal/Pulse";
 
 function HowItWorks() {

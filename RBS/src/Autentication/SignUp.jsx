@@ -3,8 +3,8 @@ import { TextField, Button, Grid, Typography, Card, CardContent } from '@mui/mat
 import { styled } from '@mui/material/styles';
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import tableimg from "./images/table.jpg";
-import { useEmail } from './EmailContext'; // Import the useEmail hook
+import tableimg from "../images/table.jpg";
+import { useEmail } from '../base/EmailContext'; // Import the useEmail hook
 
 const SignUpCard = styled(Card)(({ theme }) => ({
   marginTop: "100px",

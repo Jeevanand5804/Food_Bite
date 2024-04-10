@@ -22,7 +22,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import RestaurantIcon from "@mui/icons-material/Restaurant";
-import { useEmail } from './EmailContext';
+import { useEmail } from '../base/EmailContext';
 
 
 const Title = styled(Typography)({

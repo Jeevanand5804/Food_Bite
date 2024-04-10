@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./App.css";
+import "../App.css";
 import { Box, Typography } from "@mui/material";
 
 function AboutUs() {

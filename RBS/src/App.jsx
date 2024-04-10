@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CssBaseline } from "@mui/material";
-import Preloader from "./preload";
-import Layout from "./Layout";
-import Home from "./Home";
-import Gallery from "./Gallery";
-import AboutUs from "./AboutUs";
-import Reservation from "./Reservation";
-import OrderFood from "./OrderFood";
-import History from "./History";
-import Login from './Login'; // Assuming you have a LoginPage component
-import SignUp from './SignUp';
+import Preloader from "../src/base/preload";
+import Layout from "../src/base/Layout";
+import Home from "../src/Components/Home";
+import Gallery from "../src/Components/Gallery";
+import AboutUs from "../src/Components/AboutUs";
+import Reservation from "../src/Components/Reservation";
+import OrderFood from "../src/Components/OrderFood";
+import History from "../src/Components/History";
+import Login from '../src/Autentication/Login'; // Assuming you have a LoginPage component
+import SignUp from '../src/Autentication/SignUp';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

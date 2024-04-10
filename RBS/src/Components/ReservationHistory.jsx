@@ -17,7 +17,7 @@ import { useTheme } from '@mui/material/styles';
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
-import { useEmail } from './EmailContext'; // Impo
+import { useEmail } from '../base/EmailContext'; // Impo
 
 function ReservationHistory() {
     const [reserves, setReserves] = useState([]);

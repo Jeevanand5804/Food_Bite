@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Grid, Typography, Card, CardContent, useMediaQuery } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
-import tableimg from "./images/table.jpg"
+import tableimg from "../images/table.jpg"
 import axios from 'axios';
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -11,7 +11,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 // import { TextField, TextareaAutosize } from '@mui/material';
-import { useEmail } from './EmailContext';
+import { useEmail } from '../base/EmailContext';
 import PartyHall from './PartyHall';
 
 

@@ -15,7 +15,7 @@ import { useTheme } from '@mui/material/styles';
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditIcon from "@mui/icons-material/Edit";
-import { useEmail } from './EmailContext'; 
+import { useEmail } from '../base/EmailContext'; 
 
 function FoodOrderHistory() {
     const theme = useTheme();
